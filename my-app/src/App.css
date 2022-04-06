@@ -1,0 +1,32 @@
+.mainLayout {
+  box-sizing: border-box;
+}
+.headerw,
+.headerw-item {
+  display: flex;
+  align-items: center;
+}
+
+.headerw {
+  justify-content: space-between;
+}
+
+.headerw .logo {
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-right: 30px !important;
+}
+
+.headerw .logo .fas {
+  color: #1890ff;
+  margin: 0 5px 0 0;
+  font-size: 28px;
+}
+
+.headerw .logo a {
+  color: #333;
+}
+.ant-menuu {
+  width: 800px;
+}
