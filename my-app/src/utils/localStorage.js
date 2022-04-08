@@ -10,8 +10,3 @@ export const isAuthenticate = () => {
   if (!localStorage.getItem("user")) return;
   return JSON.parse(localStorage.getItem("user"));
 };
-
-export const getDataCart = () => {
-  if (!localStorage.getItem("cart")) return;
-  return JSON.parse(localStorage.getItem("cart"));
-};

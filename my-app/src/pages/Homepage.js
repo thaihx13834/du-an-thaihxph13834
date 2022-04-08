@@ -6,7 +6,7 @@ import { getProducts } from "../features/product/ProductSlice";
 import { Link, useParams } from "react-router-dom";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { read } from "../api/product";
-import { addToCart } from "../utils/cart";
+import { addToCart } from "../features/cart/CartSlice";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const Homepage = () => {
   }, []);
 
   const products = useSelector((data) => data.product.value);
+  const carts = useSelector((data) => data.cart.value);
   const dataSource = products;
 
   return (
@@ -52,8 +53,13 @@ const Homepage = () => {
                   style={{ width: 88 }}
                   onClick={async () => {
                     const { data } = await read(item._id);
-                    addToCart({ ...data, quantity: 1 }, () => {
-                      Modal.success({ title: "Them thanh cong vao gio hang" });
+                    const product = {
+                      ...data,
+                      quantity: 1,
+                    };
+                    dispatch(addToCart(product));
+                    Modal.success({
+                      title: "Them thanh cong vao gio hang",
                     });
                   }}
                   width={100}
@@ -93,8 +99,11 @@ const Homepage = () => {
                   style={{ width: 88 }}
                   onClick={async () => {
                     const { data } = await read(item._id);
-                    addToCart({ ...data, quantity: 1 }, () => {
-                      Modal.success({ title: "Them thanh cong vao gio hang" });
+                    const product = { ...data, quantity: 1 };
+                    console.log(product);
+                    dispatch(addToCart(product));
+                    Modal.success({
+                      title: "Them thanh cong vao gio hang",
                     });
                   }}
                   width={100}

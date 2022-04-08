@@ -22,7 +22,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import PrivateRouter from "./pages/PrivateRouter";
-import Checkout from "./pages/Checkout";
+// import Checkout from "./pages/Checkout";
 import Bill from "./features/bill/Bill";
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
           <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
+          {/* <Route path="checkout" element={<Checkout />} /> */}
         </Route>
         <Route
           path="admin"

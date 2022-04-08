@@ -1,34 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Row, Col, Divider, Image, Button, Table, Modal } from "antd";
-import { getDataCart } from "../utils/localStorage";
 import {
   PlusSquareOutlined,
   MinusSquareOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
 import { isAuthenticate } from "../utils/localStorage";
 import { useNavigate } from "react-router-dom";
+import {
+  removeItemCart,
+  increaseItem,
+  decreaseItem,
+} from "../features/cart/CartSlice";
 const Cart = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [dataSource, setDataSource] = useState([]);
-  const dataSouces = getDataCart();
-  useEffect(() => {
-    const data = [];
-    dataSouces.map((item, index) => {
-      data.push({
-        key: index + 1,
-        name: item.name,
-        img: item.img,
-        price: item.price,
-        quantity: item.quantity,
-        total: item.price * item.quantity,
-      });
-    });
+  const dataSouces = useSelector((data) => data.cart.value);
 
-    setDataSource(data);
-  }, []);
-
-  console.log(dataSource);
   const columns = [
     {
       title: "Image",
@@ -56,24 +45,7 @@ const Cart = () => {
             <Button
               type="text"
               onClick={() => {
-                const quantt = (record.quantity += 1);
-                const total = record.price * quantt;
-                const editData = { ...record, quantity: quantt, total: total };
-                console.log(editData);
-
-                setDataSource(
-                  dataSource.map((item) =>
-                    item.key === record.key ? editData : item
-                  )
-                );
-                localStorage.setItem(
-                  "cart",
-                  JSON.stringify(
-                    dataSource.map((item) =>
-                      item.key === record.key ? editData : item
-                    )
-                  )
-                );
+                dispatch(increaseItem(record._id));
               }}
             >
               <PlusSquareOutlined />
@@ -82,41 +54,7 @@ const Cart = () => {
             <Button
               type="text"
               onClick={() => {
-                const quantt = (record.quantity -= 1);
-                if (quantt < 1) {
-                  console.log(quantt);
-                  setDataSource(
-                    dataSource.filter((item) => item.key !== record.key)
-                  );
-                  localStorage.setItem(
-                    "cart",
-                    JSON.stringify(
-                      dataSource.filter((item) => item.key !== record.key)
-                    )
-                  );
-                } else {
-                  const total = record.price * quantt;
-                  const editData = {
-                    ...record,
-                    quantity: quantt,
-                    total: total,
-                  };
-                  console.log(editData);
-
-                  setDataSource(
-                    dataSource.map((item) =>
-                      item.key === record.key ? editData : item
-                    )
-                  );
-                  localStorage.setItem(
-                    "cart",
-                    JSON.stringify(
-                      dataSource.map((item) =>
-                        item.key === record.key ? editData : item
-                      )
-                    )
-                  );
-                }
+                dispatch(decreaseItem(record._id));
               }}
             >
               <MinusSquareOutlined />
@@ -136,6 +74,7 @@ const Cart = () => {
       title: "Action",
       key: "action",
       render: (text, record) => {
+        console.log(text._id);
         return (
           <DeleteOutlined
             style={{ color: "red", marginLeft: 12, cursor: "pointer" }}
@@ -145,15 +84,7 @@ const Cart = () => {
                 okText: "Ok",
                 okType: "danger",
                 onOk: () => {
-                  setDataSource(
-                    dataSource.filter((item) => item.key !== record.key)
-                  );
-                  localStorage.setItem(
-                    "cart",
-                    JSON.stringify(
-                      dataSource.filter((item) => item.key !== record.key)
-                    )
-                  );
+                  dispatch(removeItemCart(record._id));
                 },
               });
             }}
@@ -167,7 +98,7 @@ const Cart = () => {
       <Row>
         <Col span={12} offset={6}>
           <Divider orientation="center">Cart Product</Divider>
-          <Table columns={columns} dataSource={dataSource} pagination={true} />
+          <Table columns={columns} dataSource={dataSouces} pagination={true} />
           <Button
             block
             type="primary"

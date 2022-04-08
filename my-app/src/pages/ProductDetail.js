@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../features/product/ProductSlice";
 import { read } from "../api/product";
-import { addToCart } from "../utils/cart";
+import { addToCart } from "../features/cart/CartSlice";
 
 const ProductDetail = () => {
   const { Content } = Layout;
@@ -31,12 +31,11 @@ const ProductDetail = () => {
   const onfinish = async (value) => {
     console.log(typeof +value.quantity);
     const { data } = await read(id);
-    addToCart(
-      { ...data, quantity: +value.quantity ? +value.quantity : 1 },
-      () => {
-        Modal.success({ title: "Them thanh cong vao gio hang" });
-      }
-    );
+    const product = {
+      ...data,
+      quantity: +value.quantity ? +value.quantity : 1,
+    };
+    dispatch(addToCart(product));
   };
 
   return (

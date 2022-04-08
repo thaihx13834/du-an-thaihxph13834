@@ -5,7 +5,7 @@ import { List, Divider, Card, Space, Button, Layout, Modal } from "antd";
 import { getProducts } from "../features/product/ProductSlice";
 import { Link } from "react-router-dom";
 import { read } from "../api/product";
-import { addToCart } from "../utils/cart";
+import { addToCart } from "../features/cart/CartSlice";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -61,10 +61,10 @@ const ProductPage = () => {
                       type="primary"
                       onClick={async () => {
                         const { data } = await read(item._id);
-                        addToCart({ ...data, quantity: 1 }, () => {
-                          Modal.success({
-                            title: "Them thanh cong vao gio hang",
-                          });
+                        const product = { ...data, quantity: 1 };
+                        dispatch(addToCart(product));
+                        Modal.success({
+                          title: "Them thanh cong vao gio hang",
                         });
                       }}
                     >
