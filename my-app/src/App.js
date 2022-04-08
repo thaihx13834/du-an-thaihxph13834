@@ -23,6 +23,7 @@ import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import PrivateRouter from "./pages/PrivateRouter";
 import Checkout from "./pages/Checkout";
+import Bill from "./features/bill/Bill";
 function App() {
   return (
     <div className="App">
@@ -62,6 +63,12 @@ function App() {
             <Route index element={<User />} />
             <Route path="add" element={<UserAdd />} />
             <Route path=":id/edit" element={<UserEdit />} />
+          </Route>
+
+          <Route path="bills">
+            <Route index element={<Bill />} />
+            {/* <Route path="add" element={<UserAdd />} />
+            <Route path=":id/edit" element={<UserEdit />} /> */}
           </Route>
         </Route>
       </Routes>

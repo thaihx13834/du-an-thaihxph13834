@@ -171,7 +171,6 @@ const Cart = () => {
           <Button
             block
             type="primary"
-            bordered={true}
             sytle={{ marginTop: 40 }}
             onClick={() => {
               const user = isAuthenticate();

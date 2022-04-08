@@ -2,8 +2,7 @@ import React from "react";
 import { Menu, Layout } from "antd";
 import {
   DropboxOutlined,
-  TeamOutlined,
-  FileOutlined,
+  CheckOutlined,
   UserOutlined,
   SwitcherOutlined,
 } from "@ant-design/icons";
@@ -57,6 +56,12 @@ const Adminsidebar = () => {
             </Menu.Item>
             <Menu.Item key="9">
               <Link to="users/add">Thêm user</Link>
+            </Menu.Item>
+          </SubMenu>
+
+          <SubMenu key="sub3" icon={<CheckOutlined />} title="Bills">
+            <Menu.Item key="7">
+              <Link to="/admin/bills">Danh sách bill</Link>
             </Menu.Item>
           </SubMenu>
         </Menu>

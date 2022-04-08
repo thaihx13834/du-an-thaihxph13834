@@ -19,6 +19,8 @@ import {
 import { getDataCart } from "../utils/localStorage";
 import { isAuthenticate } from "../utils/localStorage";
 import { useNavigate } from "react-router-dom";
+import { creat, creatbilldt } from "../api/bill";
+
 const Checkout = () => {
   const [form] = Form.useForm();
   const { user } = isAuthenticate();
@@ -113,7 +115,7 @@ const Checkout = () => {
     },
   ];
 
-  const onFinish = (value) => {
+  const onFinish = async (value) => {
     console.log(value);
     console.log(tongthanhtien);
     const bill = {
@@ -122,6 +124,27 @@ const Checkout = () => {
       phone: value.phone,
       total: tongthanhtien,
     };
+    const { data } = await creat(bill);
+    console.log(dataSource);
+    dataSource.map(async (item) => {
+      const billdetail = {
+        user: value.id,
+        product: item._id,
+        img: item.img,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        total: item.total,
+        bill: data._id,
+      };
+      await creatbilldt(billdetail);
+    });
+    Modal.success({
+      title:
+        "Checkout thành công, Chúng tôi sẽ liên hệ với quý khách trong ít phút để xác nhận đơn hàng",
+    });
+    navigate("/");
+    localStorage.removeItem("cart");
   };
   let tongthanhtien = 0;
   if (dataSource != []) {

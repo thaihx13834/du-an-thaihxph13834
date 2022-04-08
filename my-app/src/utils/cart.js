@@ -4,7 +4,9 @@ if (localStorage.getItem("cart")) {
 }
 
 export const addToCart = (newProduct, next) => {
+  console.log(newProduct);
   const exitsProduct = cart.find((item) => item._id === newProduct._id);
+  console.log(exitsProduct);
   if (!exitsProduct) {
     cart.push(newProduct);
   } else {
