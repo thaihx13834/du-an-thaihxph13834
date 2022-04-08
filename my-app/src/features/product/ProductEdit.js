@@ -39,6 +39,7 @@ const ProductEdit = () => {
 
   const onFinish = async (value) => {
     console.log(value);
+    const categoryId = categories.find((c) => c.name === value.cate);
     const file = fileList[0];
 
     if (file) {
@@ -57,9 +58,17 @@ const ProductEdit = () => {
       value.img = data.url;
       setfileList([]);
     }
-
+    const prodct = {
+      _id: value._id,
+      name: value.name,
+      price: value.price,
+      desc: value.desc,
+      img: value.img,
+      category: categoryId ? categoryId._id : value.cate,
+    };
+    console.log(prodct);
     console.log(value);
-    dispatch(updateProduct(value));
+    dispatch(updateProduct(prodct));
 
     navigate("/admin/products");
   };
@@ -100,8 +109,8 @@ const ProductEdit = () => {
         >
           <Select>
             {category.map((item) => (
-              <Option key={item.id} value={item.cate}>
-                {item.name}
+              <Option key={item.id} value={item.id}>
+                {item.cate}
               </Option>
             ))}
           </Select>

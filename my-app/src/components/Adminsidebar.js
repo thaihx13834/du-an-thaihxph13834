@@ -53,10 +53,10 @@ const Adminsidebar = () => {
           </SubMenu>
           <SubMenu key="sub3" icon={<UserOutlined />} title="Users">
             <Menu.Item key="7">
-              <Link to="/admin/users">Danh sách loại hàng</Link>
+              <Link to="/admin/users">Danh sách user</Link>
             </Menu.Item>
             <Menu.Item key="9">
-              <Link to="users/add">Thêm loại hàng</Link>
+              <Link to="users/add">Thêm user</Link>
             </Menu.Item>
           </SubMenu>
         </Menu>

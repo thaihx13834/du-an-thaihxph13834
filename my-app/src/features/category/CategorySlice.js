@@ -56,7 +56,7 @@ const categorySlice = createSlice({
     builder.addCase(updateCategory.fulfilled, (state, action) => {
       console.log(action.payload);
       state.value = state.value.map((item) =>
-        item.id === action.payload.id ? action.payload : item
+        item._id === action.payload._id ? action.payload : item
       );
     });
   },

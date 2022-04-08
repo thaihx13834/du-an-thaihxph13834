@@ -40,9 +40,7 @@ export const removeProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
   "product/updateProduct",
   async (product) => {
-    console.log(product);
     const { data } = await edit(product);
-    console.log(data);
     return data;
   }
 );
@@ -95,9 +93,8 @@ const productSlice = createSlice({
     });
 
     builder.addCase(updateProduct.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.value = state.value.map((item) =>
-        item.id === action.payload.id ? action.payload : item
+        item._id === action.payload._id ? action.payload : item
       );
     });
 
@@ -106,7 +103,6 @@ const productSlice = createSlice({
     });
 
     builder.addCase(getProduct.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.value = action.payload;
     });
   },

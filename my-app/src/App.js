@@ -22,6 +22,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import PrivateRouter from "./pages/PrivateRouter";
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <div className="App">
@@ -33,6 +34,7 @@ function App() {
           <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
         </Route>
         <Route
           path="admin"
@@ -42,8 +44,8 @@ function App() {
             </PrivateRouter>
           }
         >
-          {/* <Route path="admin" element={<AdminLayout />}> */}
           <Route index element={<Dashboard />} />
+          <Route to="dashboard" element={<Dashboard />} />
 
           <Route path="products">
             <Route index element={<Product />} />

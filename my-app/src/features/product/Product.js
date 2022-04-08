@@ -23,7 +23,6 @@ const Product = () => {
   }, []);
 
   const product = useSelector((data) => data.product.value);
-  console.log(product);
   const dataSource = product.map((item, index) => {
     return {
       key: index + 1,
@@ -54,7 +53,6 @@ const Product = () => {
         confirm,
         clearFilters,
       }) => {
-        console.log(selectedKeys);
         return (
           <div style={{ padding: "10px" }}>
             <Input
@@ -117,7 +115,6 @@ const Product = () => {
         confirm,
         clearFilters,
       }) => {
-        console.log(selectedKeys);
         return (
           <div style={{ padding: "10px" }}>
             <Input

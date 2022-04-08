@@ -14,8 +14,9 @@ const CategoryEdit = () => {
   useEffect(() => {
     const getCategory = async () => {
       const { data } = await read(id);
+      console.log(data);
       console.log(data.category);
-      form.setFieldsValue(data.category);
+      form.setFieldsValue(data);
     };
     getCategory();
   }, []);

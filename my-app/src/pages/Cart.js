@@ -6,7 +6,10 @@ import {
   MinusSquareOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+import { isAuthenticate } from "../utils/localStorage";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
+  const navigate = useNavigate();
   const [dataSource, setDataSource] = useState([]);
   const dataSouces = getDataCart();
   useEffect(() => {
@@ -164,7 +167,26 @@ const Cart = () => {
       <Row>
         <Col span={12} offset={6}>
           <Divider orientation="center">Cart Product</Divider>
-          <Table columns={columns} dataSource={dataSource} />,
+          <Table columns={columns} dataSource={dataSource} pagination={true} />
+          <Button
+            block
+            type="primary"
+            bordered={true}
+            sytle={{ marginTop: 40 }}
+            onClick={() => {
+              const user = isAuthenticate();
+              if (!user) {
+                Modal.error({
+                  title: "Vui lòng đăng nhập để thanh toán",
+                });
+                navigate("/signin");
+              } else {
+                navigate("/checkout");
+              }
+            }}
+          >
+            Check Out
+          </Button>
         </Col>
       </Row>
     </div>
