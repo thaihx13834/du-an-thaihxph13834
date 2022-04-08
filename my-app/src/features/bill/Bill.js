@@ -2,25 +2,38 @@ import React, { useEffect, useState } from "react";
 import { Table, Divider, Space, Button, PageHeader, Modal, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { getBills, removeBill } from "./BillSlice";
+import { read } from "../../api/user";
+import moment from "moment";
 import {
   EditOutlined,
+  ExclamationCircleOutlined,
   DeleteOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { isAuthenticate } from "../../utils/localStorage";
 
 const Bill = () => {
-  //   const dispatch = useDispatch();
-  //   useEffect(() => {
-  //     dispatch(getCategories());
-  //   }, []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBills());
+  }, []);
 
-  const categories = useSelector((data) => data.Bill.value);
-  console.log(categories);
-  const dataSource = categories.map((item, index) => {
+  const bills = useSelector((data) => data.bill.value);
+  //   console.log(bills);
+  //   const { user } = isAuthenticate();
+  const dataSource = bills.map((item, index) => {
+    const date = moment(item.createdAt).format("HH:mm:ss DD-MM-YYYY");
+    console.log(date);
     return {
       key: index + 1,
       id: item._id,
-      name: item.name,
+      name: item.user.name,
+      phone: item.phone,
+      address: item.address,
+      total: item.total,
+      status: item.status,
+      date: date,
     };
   });
 
@@ -37,7 +50,6 @@ const Bill = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-
       filterDropdown: ({
         setSelectedKeys,
         selectedKeys,
@@ -91,22 +103,70 @@ const Bill = () => {
     },
 
     {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+    },
+
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+    },
+
+    {
+      title: "Total",
+      dataIndex: "total",
+      key: "total",
+      sorter: (record1, record2) => {
+        return record1.total - record2.total;
+      },
+    },
+
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => {
+        if (text === 0) {
+          return <p>Chờ xử lý</p>;
+        } else if (text === 1) {
+          return <p>Đang xử lý</p>;
+        } else if (text === 2) {
+          return <p>Đang giao hàng</p>;
+        } else if (text === 4) {
+          return <p>Đã giao hàng</p>;
+        }
+      },
+    },
+
+    {
       title: "Action",
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`${record.id}/edit`}>
+          <Link to={`/bills/${record.id}`}>
+            <ExclamationCircleOutlined />
+          </Link>
+          <Link to={`/bills/${record.id}/edit`}>
             <EditOutlined />
           </Link>
+
           <DeleteOutlined
             style={{ color: "red", marginLeft: 12, cursor: "pointer" }}
             onClick={() => {
               Modal.confirm({
-                title: `Are you sure delete this Bill ${record.name}?`,
+                title: `Are you sure delete this product ${record.name}?`,
                 okText: "Ok",
                 okType: "danger",
                 onOk: () => {
-                  dispatch(removeCategories(record.id));
+                  dispatch(removeBill(record.id));
                 },
               });
             }}
@@ -122,7 +182,7 @@ const Bill = () => {
         title="Danh sách loại hàng"
         extra={[
           <Button key="1" type="primary">
-            <Link to={`/admin/categories/add`}>Thêm mới loại hàng</Link>
+            <Link to={`/admin/bills/add`}>Thêm mới loại hàng</Link>
           </Button>,
         ]}
       ></PageHeader>

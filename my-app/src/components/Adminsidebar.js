@@ -59,8 +59,8 @@ const Adminsidebar = () => {
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="sub3" icon={<CheckOutlined />} title="Bills">
-            <Menu.Item key="7">
+          <SubMenu key="sub4" icon={<CheckOutlined />} title="Bills">
+            <Menu.Item key="10">
               <Link to="/admin/bills">Danh sách bill</Link>
             </Menu.Item>
           </SubMenu>
