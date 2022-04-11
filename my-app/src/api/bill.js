@@ -21,6 +21,17 @@ export const remove = (id) => {
 };
 
 export const listDetail = (id) => {
-  const url = `/bills/${id}?_embed=bill`;
+  const url = `/billdetails/${id}`;
   return instance.get(url);
+};
+
+export const billdt = (id) => {
+  const url = `/bills/${id}`;
+  return instance.get(url);
+};
+
+export const editBill = (bill) => {
+  console.log(bill);
+  const url = `bills/${bill._id}`;
+  return instance.put(url, bill);
 };

@@ -25,6 +25,7 @@ import PrivateRouter from "./pages/PrivateRouter";
 import Checkout from "./pages/Checkout";
 import Bill from "./features/bill/Bill";
 import BillDetail from "./features/bill/BillDetail";
+import BillEdit from "./features/bill/BillEdit";
 function App() {
   return (
     <div className="App">
@@ -69,8 +70,7 @@ function App() {
           <Route path="bills">
             <Route index element={<Bill />} />
             <Route path=":id" element={<BillDetail />} />
-            {/* <Route path="add" element={<UserAdd />} />
-            <Route path=":id/edit" element={<UserEdit />} /> */}
+            <Route path=":id/edit" element={<BillEdit />} />
           </Route>
         </Route>
       </Routes>
