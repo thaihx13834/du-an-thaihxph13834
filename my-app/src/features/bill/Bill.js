@@ -3,7 +3,6 @@ import { Table, Divider, Space, Button, PageHeader, Modal, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getBills, removeBill } from "./BillSlice";
-import { read } from "../../api/user";
 import moment from "moment";
 import {
   EditOutlined,
@@ -11,19 +10,17 @@ import {
   DeleteOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { isAuthenticate } from "../../utils/localStorage";
+// import { isAuthenticate } from "../../utils/localStorage";
 
 const Bill = () => {
   const dispatch = useDispatch();
+  const item = useSelector((data) => data.bill.value);
   useEffect(() => {
     dispatch(getBills());
   }, []);
 
-  const data = useSelector((data) => data.bill.value);
-  console.log(data);
-  const dataSource = data.bills.map((item, index) => {
+  const dataSource = item.map((item, index) => {
     const date = moment(item.createdAt).format("HH:mm:ss DD-MM-YYYY");
-    console.log(date);
     return {
       key: index + 1,
       id: item._id,
@@ -55,7 +52,6 @@ const Bill = () => {
         confirm,
         clearFilters,
       }) => {
-        console.log(selectedKeys);
         return (
           <div style={{ padding: "10px" }}>
             <Input
@@ -94,7 +90,6 @@ const Bill = () => {
       },
       onFilter: (value, record) => {
         return record.name.toLowerCase().includes(value.toLowerCase());
-        // console.log(record.name.toLowerCase().includes(value.toLowerCase()));
       },
       filterIcon: () => {
         return <SearchOutlined />;

@@ -20,22 +20,6 @@ export const removeBill = createAsyncThunk("bill/removeBill", async (id) => {
   return id;
 });
 
-// export const addCategory = createAsyncThunk(
-//   "category/addCategory",
-//   async (category) => {
-//     const { data } = await add(category);
-//     return data;
-//   }
-// );
-
-// export const updateCategory = createAsyncThunk(
-//   "category/updateCategory",
-//   async (category) => {
-//     const { data } = await edit(category);
-//     return data;
-//   }
-// );
-
 const billSlice = createSlice({
   name: "bill",
   initialState: {
