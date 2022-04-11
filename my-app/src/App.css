@@ -30,3 +30,14 @@
 .ant-menuu {
   width: 800px;
 }
+
+.site-layout-content {
+  padding: 50px 150px;
+  background: #fff;
+}
+
+.ant-card-cover {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}

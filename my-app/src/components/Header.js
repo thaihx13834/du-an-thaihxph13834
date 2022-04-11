@@ -33,14 +33,14 @@ const AppHeader = () => {
   const userDropdown = auth ? (
     <Menu>
       <Menu.Item key="3">
-        <NavLink rel="noopener noreferrer" to="/signin">
-          Xin chao {auth.user.name}
+        <NavLink rel="noopener noreferrer" to="/profile">
+          Xin chào {auth.user.name}
         </NavLink>
       </Menu.Item>
       {auth.user.role === 1 ? (
         <Menu.Item key="role">
           <NavLink rel="noopener noreferrer" to="/admin">
-            Vao trang quan tri
+            Vào trang admin
           </NavLink>
         </Menu.Item>
       ) : (
@@ -57,7 +57,7 @@ const AppHeader = () => {
             navigate("/");
           }}
         >
-          Dang xuat
+          Đăng xuất
         </Button>
       </Menu.Item>
     </Menu>
@@ -65,12 +65,12 @@ const AppHeader = () => {
     <Menu>
       <Menu.Item key="0">
         <NavLink rel="noopener noreferrer" to="/signin">
-          Dang nhap
+          Đăng nhập
         </NavLink>
       </Menu.Item>
       <Menu.Item key="1">
         <NavLink rel="noopener noreferrer" to="/signup">
-          Dang ki
+          Đăng kí
         </NavLink>
       </Menu.Item>
     </Menu>

@@ -15,8 +15,8 @@ const CategoryEdit = () => {
   useEffect(() => {
     const getUser = async () => {
       const { data } = await read(id);
-      console.log(data);
-      form.setFieldsValue(data);
+      console.log(data.user);
+      form.setFieldsValue(data.user);
     };
     getUser();
   }, []);

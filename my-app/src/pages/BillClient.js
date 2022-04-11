@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { listDetail } from "../../api/bill";
+import { listDetail } from "../api/bill";
 import { Descriptions, Image, PageHeader, Table } from "antd";
 import moment from "moment";
 
-const BillDetail = () => {
+const BillClient = () => {
   const { id } = useParams("id");
 
   const bills = useSelector((item) => item.bill.value);
@@ -16,15 +16,13 @@ const BillDetail = () => {
   const [dataSource, setdataSource] = useState([]);
 
   useEffect(() => {
-    const getBillDetail = async () => {
+    const getBillClient = async () => {
       const { data } = await listDetail(id);
       console.log(data);
       setdataSource(data);
     };
-    getBillDetail();
+    getBillClient();
   }, [id]);
-
-  console.log(dataSource);
 
   let stt;
   if (bill.status === 0) {
@@ -68,7 +66,7 @@ const BillDetail = () => {
   ];
 
   return (
-    <>
+    <div className="site-layout-content">
       <Descriptions title="Thông tin khách hàng">
         <Descriptions.Item label="Tên khách hàng">
           {bill.user.name}
@@ -86,8 +84,8 @@ const BillDetail = () => {
 
       <PageHeader title="List bill product" style={{ padding: "16px 0" }} />
       <Table columns={columns} dataSource={dataSource} pagination={true} />
-    </>
+    </div>
   );
 };
 
-export default BillDetail;
+export default BillClient;

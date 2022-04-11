@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Table, Divider, Space, Button, PageHeader, Modal, Input } from "antd";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { getBills, removeBill } from "./BillSlice";
-import moment from "moment";
+import React, { useEffect } from "react";
 import {
+  Row,
+  Col,
+  Card,
+  Avatar,
+  Input,
+  Space,
+  Button,
+  PageHeader,
+  Table,
+} from "antd";
+import {
+  UserOutlined,
   EditOutlined,
-  ExclamationCircleOutlined,
-  DeleteOutlined,
   SearchOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
-// import { isAuthenticate } from "../../utils/localStorage";
-
-const Bill = () => {
+import { isAuthenticate } from "../utils/localStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { listBillwUser } from "../features/bill/BillSlice";
+import { Link } from "react-router-dom";
+import moment from "moment";
+const Profile = () => {
+  const { Meta } = Card;
+  const { user } = isAuthenticate();
   const dispatch = useDispatch();
-  const item = useSelector((data) => data.bill.value);
   useEffect(() => {
-    dispatch(getBills());
+    dispatch(listBillwUser(user.id));
   }, []);
-
+  const item = useSelector((data) => data.bill.value);
   const dataSource = item.map((item, index) => {
     const date = moment(item.createdAt).format("HH:mm:ss DD-MM-YYYY");
     return {
@@ -35,9 +45,9 @@ const Bill = () => {
 
   const columns = [
     {
-      title: "Id",
-      dataIndex: "id",
-      key: "id",
+      title: "#",
+      dataIndex: "key",
+      key: "key",
       sorter: (record1, record2) => {
         return record1.id - record2.id;
       },
@@ -112,6 +122,7 @@ const Bill = () => {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
     },
 
     {
@@ -139,46 +150,51 @@ const Bill = () => {
         }
       },
     },
-
     {
       title: "Action",
       key: "action",
-      render: (text, record) => (
-        <Space size="middle">
-          <Link to={`/admin/bills/${record.id}`}>
+      render: (text, record) => {
+        return (
+          <Link to={`/bills/${record.id}`}>
             <ExclamationCircleOutlined />
           </Link>
-          <Link to={`/admin/bills/${record.id}/edit`}>
-            <EditOutlined />
-          </Link>
-
-          <DeleteOutlined
-            style={{ color: "red", marginLeft: 12, cursor: "pointer" }}
-            onClick={() => {
-              Modal.confirm({
-                title: `Are you sure delete this product ${record.name}?`,
-                okText: "Ok",
-                okType: "danger",
-                onOk: () => {
-                  dispatch(removeBill(record.id));
-                },
-              });
-            }}
-          />
-        </Space>
-      ),
+        );
+      },
     },
   ];
+
   return (
-    <div style={{ padding: "20px" }}>
-      <PageHeader ghost={false} title="Danh sách đơn hàng"></PageHeader>
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        pagination={{ pageSize: 9 }}
-      />
-    </div>
+    <>
+      <div className="site-layout-content">
+        <Row>
+          <Col span={18} push={6}>
+            {" "}
+            <PageHeader ghost={false} title="Danh sách đơn hàng"></PageHeader>
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              pagination={{ pageSize: 9 }}
+            />
+          </Col>
+          <Col span={6} pull={18}>
+            <Card
+              hoverable
+              style={{ width: 240 }}
+              actions={[<EditOutlined key="edit" />]}
+              cover={
+                <Avatar
+                  size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                  icon={<UserOutlined />}
+                />
+              }
+            >
+              <Meta title={user.name} description={user.email} />
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    </>
   );
 };
 
-export default Bill;
+export default Profile;

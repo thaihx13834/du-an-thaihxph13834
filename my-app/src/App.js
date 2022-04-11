@@ -26,6 +26,8 @@ import Checkout from "./pages/Checkout";
 import Bill from "./features/bill/Bill";
 import BillDetail from "./features/bill/BillDetail";
 import BillEdit from "./features/bill/BillEdit";
+import Profile from "./pages/Profile";
+import BillClient from "./pages/BillClient";
 function App() {
   return (
     <div className="App">
@@ -38,6 +40,8 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="bills/:id" element={<BillClient />} />
         </Route>
         <Route
           path="admin"

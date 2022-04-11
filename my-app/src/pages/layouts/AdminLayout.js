@@ -37,6 +37,16 @@ const AdminLayout = () => {
                 type="text"
                 style={{ color: "white" }}
                 onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Về trang Web
+              </Button>
+              |
+              <Button
+                type="text"
+                style={{ color: "white" }}
+                onClick={() => {
                   localStorage.removeItem("user");
                   navigate("/");
                 }}
