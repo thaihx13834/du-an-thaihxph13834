@@ -32,16 +32,26 @@ const AppHeader = () => {
   const auth = isAuthenticate();
   const userDropdown = auth ? (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="3">
         <NavLink rel="noopener noreferrer" to="/signin">
           Xin chao {auth.user.name}
         </NavLink>
       </Menu.Item>
-      <Menu.Item>
+      {auth.user.role === 1 ? (
+        <Menu.Item key="role">
+          <NavLink rel="noopener noreferrer" to="/admin">
+            Vao trang quan tri
+          </NavLink>
+        </Menu.Item>
+      ) : (
+        ""
+      )}
+      <Menu.Item key="4">
         <Button
           rel="noopener noreferrer"
-          bordered={false}
           type="text"
+          block
+          style={{ textAlign: "left" }}
           onClick={() => {
             localStorage.removeItem("user");
             navigate("/");
@@ -53,12 +63,12 @@ const AppHeader = () => {
     </Menu>
   ) : (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="0">
         <NavLink rel="noopener noreferrer" to="/signin">
           Dang nhap
         </NavLink>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key="1">
         <NavLink rel="noopener noreferrer" to="/signup">
           Dang ki
         </NavLink>

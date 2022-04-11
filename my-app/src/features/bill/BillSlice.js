@@ -1,10 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { list, remove } from "../../api/bill";
+import { list, remove, listDetail } from "../../api/bill";
 
 export const getBills = createAsyncThunk("bill/getBills", async () => {
   const { data } = await list();
   return data;
 });
+
+export const getBillDetail = createAsyncThunk(
+  "bill/getBillDetail",
+  async (id) => {
+    console.log(id);
+    const { data } = await listDetail(id);
+    return data;
+  }
+);
 
 export const removeBill = createAsyncThunk("bill/removeBill", async (id) => {
   await remove(id);
@@ -35,6 +44,10 @@ const billSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getBills.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+
+    builder.addCase(getBillDetail.fulfilled, (state, action) => {
       state.value = action.payload;
     });
     // builder.addCase(addCategory.fulfilled, (state, action) => {

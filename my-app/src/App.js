@@ -4,7 +4,7 @@ import "./App.css";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import AdminLayout from "./pages/layouts/AdminLayout";
 import Dashboard from "./pages/Dashboard";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Product from "./features/product/Product";
 import ProductAdd from "./features/product/ProductAdd";
 import Category from "./features/category/Category";
@@ -22,8 +22,9 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import PrivateRouter from "./pages/PrivateRouter";
-// import Checkout from "./pages/Checkout";
+import Checkout from "./pages/Checkout";
 import Bill from "./features/bill/Bill";
+import BillDetail from "./features/bill/BillDetail";
 function App() {
   return (
     <div className="App">
@@ -35,7 +36,7 @@ function App() {
           <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
           <Route path="cart" element={<Cart />} />
-          {/* <Route path="checkout" element={<Checkout />} /> */}
+          <Route path="checkout" element={<Checkout />} />
         </Route>
         <Route
           path="admin"
@@ -45,8 +46,8 @@ function App() {
             </PrivateRouter>
           }
         >
-          <Route index element={<Dashboard />} />
-          <Route to="dashboard" element={<Dashboard />} />
+          <Route index element={<Navigate to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
 
           <Route path="products">
             <Route index element={<Product />} />
@@ -67,6 +68,7 @@ function App() {
 
           <Route path="bills">
             <Route index element={<Bill />} />
+            <Route path=":id" element={<BillDetail />} />
             {/* <Route path="add" element={<UserAdd />} />
             <Route path=":id/edit" element={<UserEdit />} /> */}
           </Route>

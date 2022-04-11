@@ -19,3 +19,8 @@ export const remove = (id) => {
   const url = `/bills/${id}`;
   return instance.delete(url);
 };
+
+export const listDetail = (id) => {
+  const url = `/bills/${id}?_embed=bill`;
+  return instance.get(url);
+};

@@ -19,10 +19,9 @@ const Bill = () => {
     dispatch(getBills());
   }, []);
 
-  const bills = useSelector((data) => data.bill.value);
-  //   console.log(bills);
-  //   const { user } = isAuthenticate();
-  const dataSource = bills.map((item, index) => {
+  const data = useSelector((data) => data.bill.value);
+  console.log(data);
+  const dataSource = data.bills.map((item, index) => {
     const date = moment(item.createdAt).format("HH:mm:ss DD-MM-YYYY");
     console.log(date);
     return {
@@ -151,10 +150,10 @@ const Bill = () => {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/bills/${record.id}`}>
+          <Link to={`/admin/bills/${record.id}`}>
             <ExclamationCircleOutlined />
           </Link>
-          <Link to={`/bills/${record.id}/edit`}>
+          <Link to={`/admin/bills/${record.id}/edit`}>
             <EditOutlined />
           </Link>
 
@@ -177,15 +176,7 @@ const Bill = () => {
   ];
   return (
     <div style={{ padding: "20px" }}>
-      <PageHeader
-        ghost={false}
-        title="Danh sách loại hàng"
-        extra={[
-          <Button key="1" type="primary">
-            <Link to={`/admin/bills/add`}>Thêm mới loại hàng</Link>
-          </Button>,
-        ]}
-      ></PageHeader>
+      <PageHeader ghost={false} title="Danh sách đơn hàng"></PageHeader>
       <Divider orientation="left"></Divider>
       <Table
         dataSource={dataSource}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Layout,
   Typography,
@@ -12,7 +12,7 @@ import {
 } from "antd";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getProduct } from "../features/product/ProductSlice";
+import { getProducts } from "../features/product/ProductSlice";
 import { read } from "../api/product";
 import { addToCart } from "../features/cart/CartSlice";
 
@@ -22,20 +22,24 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams("id");
   useEffect(() => {
-    dispatch(getProduct(id));
+    dispatch(getProducts());
   }, []);
 
   const [form] = Form.useForm();
-  const product = useSelector((data) => data.product.value);
+  const pro = useSelector((data) => data.product.value);
+  const item = pro.find((item) => item._id === id);
+  console.log(item);
 
   const onfinish = async (value) => {
-    console.log(typeof +value.quantity);
     const { data } = await read(id);
     const product = {
       ...data,
       quantity: +value.quantity ? +value.quantity : 1,
     };
     dispatch(addToCart(product));
+    Modal.success({
+      title: "Them thanh cong vao gio hang",
+    });
   };
 
   return (
@@ -43,14 +47,14 @@ const ProductDetail = () => {
       <Content style={{ padding: "50px" }}>
         <Row>
           <Col span={12} style={{ textAlign: "center" }}>
-            <Image src={product.img} width={600} />
+            <Image src={item.img} width={600} />
           </Col>
           <Col span={12}>
             <Typography>
-              <Title level={2}>Tên sản phẩm: {product.name}</Title>
-              <Title level={4}>Giá: {product.price} vnđ</Title>
+              <Title level={2}>Tên sản phẩm: {item.name}</Title>
+              <Title level={4}>Giá: {item.price} vnđ</Title>
               <Paragraph>
-                <Title level={4}>Mô tả: </Title> {product.desc}
+                <Title level={4}>Mô tả: </Title> {item.desc}
               </Paragraph>
             </Typography>
 
