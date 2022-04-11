@@ -1,3 +1,6 @@
+body {
+  position: relative;
+}
 .mainLayout {
   box-sizing: border-box;
 }
@@ -40,4 +43,12 @@
   display: flex;
   justify-content: center;
   padding: 20px 0;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: auto;
 }

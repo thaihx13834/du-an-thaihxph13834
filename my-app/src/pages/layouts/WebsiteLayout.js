@@ -10,11 +10,11 @@ const WebsiteLayout = () => {
         <AppHeader />
       </Header>
 
-      <Content style={{ backgroundColor: "white" }}>
+      <Content style={{ backgroundColor: "white", paddingBottom: "70px" }}>
         <Outlet />
       </Content>
 
-      <Footer>Footer Website</Footer>
+      <Footer className="footer">Footer Website</Footer>
     </Layout>
   );
 };

@@ -9,16 +9,18 @@ import {
   Button,
   PageHeader,
   Table,
+  Modal,
 } from "antd";
 import {
   UserOutlined,
   EditOutlined,
   SearchOutlined,
+  DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { isAuthenticate } from "../utils/localStorage";
 import { useDispatch, useSelector } from "react-redux";
-import { listBillwUser } from "../features/bill/BillSlice";
+import { listBillwUser, removeBill } from "../features/bill/BillSlice";
 import { Link } from "react-router-dom";
 import moment from "moment";
 const Profile = () => {
@@ -155,9 +157,31 @@ const Profile = () => {
       key: "action",
       render: (text, record) => {
         return (
-          <Link to={`/bills/${record.id}`}>
-            <ExclamationCircleOutlined />
-          </Link>
+          <Space>
+            <Link to={`/bills/${record.id}`}>
+              <ExclamationCircleOutlined />
+            </Link>
+
+            <DeleteOutlined
+              style={{ color: "red", marginLeft: 12, cursor: "pointer" }}
+              onClick={() => {
+                if (text.status !== 0) {
+                  return Modal.confirm({
+                    title: `Đơn hàng khôngt thể xóa`,
+                  });
+                } else {
+                  Modal.confirm({
+                    title: `Are you sure delete this bill ?`,
+                    okText: "Ok",
+                    okType: "danger",
+                    onOk: () => {
+                      dispatch(removeBill(text.id));
+                    },
+                  });
+                }
+              }}
+            />
+          </Space>
         );
       },
     },
