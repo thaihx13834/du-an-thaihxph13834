@@ -15,6 +15,7 @@ export const listWithCategory = () => {
 
 export const add = (product) => {
   const url = `/products/${userInfo?.user?.id}`;
+  console.log(url);
   return instance.post(url, product, {
     headers: {
       Authorization: `Bearer ${userInfo?.token}`,

@@ -20,7 +20,7 @@ import { isAuthenticate } from "../utils/localStorage";
 import { useNavigate } from "react-router-dom";
 import { creat, creatbilldt } from "../api/bill";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItemCart } from "../features/cart/CartSlice";
+import { reCart, removeItemCart } from "../features/cart/CartSlice";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -134,6 +134,7 @@ const Checkout = () => {
       title:
         "Checkout thành công, Chúng tôi sẽ liên hệ với quý khách trong ít phút để xác nhận đơn hàng",
     });
+    dispatch(reCart());
     navigate("/");
   };
   return (
