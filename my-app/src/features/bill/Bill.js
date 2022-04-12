@@ -18,7 +18,7 @@ const Bill = () => {
   useEffect(() => {
     dispatch(getBills());
   }, []);
-
+  console.log(item);
   const dataSource = item.map((item, index) => {
     const date = moment(item.createdAt).format("HH:mm:ss DD-MM-YYYY");
     return {
