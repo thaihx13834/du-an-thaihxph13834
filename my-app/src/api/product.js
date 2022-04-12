@@ -54,3 +54,23 @@ export const search = (searchValue) => {
   const url = `products?search=${searchValue}`;
   return instance.get(url);
 };
+
+export const sortaz = () => {
+  const url = `products?sort=name&order=desc`;
+  return instance.get(url);
+};
+
+export const sortza = () => {
+  const url = `products?sort=name&order=asc`;
+  return instance.get(url);
+};
+
+export const sortpricetang = () => {
+  const url = `products?sort=price&order=asc`;
+  return instance.get(url);
+};
+
+export const sortpricegiam = () => {
+  const url = `products?sort=price&order=desc`;
+  return instance.get(url);
+};

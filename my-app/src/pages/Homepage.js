@@ -17,14 +17,13 @@ const Homepage = () => {
   }, []);
 
   const products = useSelector((data) => data.product.value);
-  const carts = useSelector((data) => data.cart.value);
   const dataSource = products;
 
   return (
     <>
       <Banner />
 
-      <Divider orientation="center">Product List</Divider>
+      <Divider orientation="center">Sản phẩm mới ra mắt</Divider>
 
       <List
         grid={{ gutter: [8, 8], column: 5, align: "middle" }}
@@ -57,50 +56,6 @@ const Homepage = () => {
                       ...data,
                       quantity: 1,
                     };
-                    dispatch(addToCart(product));
-                    Modal.success({
-                      title: "Them thanh cong vao gio hang",
-                    });
-                  }}
-                  width={100}
-                  type="primary"
-                >
-                  <ShoppingCartOutlined />
-                </Button>
-              </Space>
-            </Card>
-          </List.Item>
-        )}
-      />
-      <List
-        grid={{ gutter: [1, 8], column: 5, align: "middle" }}
-        style={{ padding: "30px" }}
-        dataSource={dataSource}
-        renderItem={(item) => (
-          <List.Item>
-            <Card
-              bordered={true}
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt={item.name} src={item.img} />}
-            >
-              <Space align="start" size={30}>
-                <Meta title={item.name} description={item.desc} />
-                <Meta title={item.price + ` vnđ`} />
-              </Space>
-
-              <Space style={{ marginTop: 20 }} size={15}>
-                <Button style={{ width: 88 }}>
-                  <Link to={`products/${item._id}`}>
-                    <EyeOutlined />
-                  </Link>
-                </Button>
-                <Button
-                  style={{ width: 88 }}
-                  onClick={async () => {
-                    const { data } = await read(item._id);
-                    const product = { ...data, quantity: 1 };
-                    console.log(product);
                     dispatch(addToCart(product));
                     Modal.success({
                       title: "Them thanh cong vao gio hang",

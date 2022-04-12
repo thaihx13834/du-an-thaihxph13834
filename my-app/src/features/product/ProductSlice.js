@@ -1,6 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { list, add, listWithCategory } from "../../api/product";
-import { remove, edit, listWithCate, read, search } from "../../api/product";
+import { list, add, listWithCategory, sortza } from "../../api/product";
+import {
+  remove,
+  edit,
+  listWithCate,
+  read,
+  search,
+  sortaz,
+  sortpricetang,
+  sortpricegiam,
+} from "../../api/product";
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
   const { data } = await list();
@@ -21,10 +30,46 @@ export const getProduct = createAsyncThunk("product/getProduct", async (id) => {
   return data;
 });
 
+export const getProductSortaz = createAsyncThunk(
+  "product/getProductSortaz",
+  async () => {
+    const { data } = await sortaz();
+    console.log(data);
+    return data;
+  }
+);
+
+export const getProductSortza = createAsyncThunk(
+  "product/getProductSortza",
+  async () => {
+    const { data } = await sortza();
+    console.log(data);
+    return data;
+  }
+);
+
+export const getPrTangPrice = createAsyncThunk(
+  "product/getPrTangPrice",
+  async () => {
+    const { data } = await sortpricetang();
+    console.log(data);
+    return data;
+  }
+);
+
+export const getPrGiamPrice = createAsyncThunk(
+  "product/getPrGiamPrice",
+  async () => {
+    const { data } = await sortpricegiam();
+    console.log(data);
+    return data;
+  }
+);
+
 export const addProducts = createAsyncThunk(
   "product/addProducts",
-  async (product, auth) => {
-    const { data } = await add(product, auth);
+  async (product) => {
+    const { data } = await add(product);
     return data;
   }
 );
@@ -72,6 +117,22 @@ const productSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+
+    builder.addCase(getProductSortaz.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+
+    builder.addCase(getPrTangPrice.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+
+    builder.addCase(getPrGiamPrice.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+
+    builder.addCase(getProductSortza.fulfilled, (state, action) => {
       state.value = action.payload;
     });
 
