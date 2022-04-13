@@ -28,6 +28,7 @@ import BillDetail from "./features/bill/BillDetail";
 import BillEdit from "./features/bill/BillEdit";
 import Profile from "./pages/Profile";
 import BillClient from "./pages/BillClient";
+import ChangeProfile from "./pages/ChangeProfile";
 function App() {
   return (
     <div className="App">
@@ -41,6 +42,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="profile/edit" element={<ChangeProfile />} />
           <Route path="bills/:id" element={<BillClient />} />
         </Route>
         <Route

@@ -21,12 +21,13 @@ import {
 import { isAuthenticate } from "../utils/localStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { listBillwUser, removeBill } from "../features/bill/BillSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 const Profile = () => {
   const { Meta } = Card;
   const { user } = isAuthenticate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(listBillwUser(user.id));
   }, []);
@@ -204,7 +205,14 @@ const Profile = () => {
             <Card
               hoverable
               style={{ width: 240 }}
-              actions={[<EditOutlined key="edit" />]}
+              actions={[
+                <EditOutlined
+                  key="edit"
+                  onClick={() => {
+                    navigate("/profile/edit");
+                  }}
+                />,
+              ]}
               cover={
                 <Avatar
                   size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
