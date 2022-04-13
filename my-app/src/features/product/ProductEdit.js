@@ -90,7 +90,13 @@ const ProductEdit = () => {
         <Form.Item
           label="Gias san pham"
           name="price"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true },
+            {
+              pattern: new RegExp(/^[0-9]+$/),
+              message: "Giá phải là số",
+            },
+          ]}
         >
           <Input />
         </Form.Item>

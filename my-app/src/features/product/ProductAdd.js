@@ -1,5 +1,13 @@
 import React from "react";
-import { Form, Divider, Input, Button, Upload, Select } from "antd";
+import {
+  Form,
+  Divider,
+  Input,
+  Button,
+  Upload,
+  Select,
+  InputNumber,
+} from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -71,7 +79,13 @@ const ProductAdd = () => {
         <Form.Item
           label="Giá sản phẩm"
           name="price"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true },
+            {
+              pattern: new RegExp(/^[0-9]+$/),
+              message: "Giá phải là số",
+            },
+          ]}
         >
           <Input />
         </Form.Item>
